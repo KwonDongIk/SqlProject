@@ -6,6 +6,7 @@ SELECT * FROM regions;
 SELECT employee_id, job_id FROM employees;
 
 SELECT * FROM employees;
+SELECT * FROM employees;
 
 SELECT DISTINCT job_id FROM employees;
 
