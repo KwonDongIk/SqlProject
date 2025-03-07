@@ -143,5 +143,8 @@ SELECT UPPER('ye dam'), LOWER('YE DAM'), INITCAP('   YE DAM ') FROM dual;
 -- first name 에 s가 들어있는 사람 사원의 이름, 급여, 부서명 조회
 SELECT first_name, salary, department_id FROM employees WHERE lower(first_name) LIKE '%s%';
 
+SELECT concat(concat('ye', ' '), 'dam') as 결과 FROM dual;
+
+
 
 
