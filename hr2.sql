@@ -198,7 +198,7 @@ SELECT last_name, length(last_name) FROM employees;
 SELECT first_name, INSTR(first_name, 'a') FROM employees;
 
 -- 28) 사원들의 이름과 월급을 조회. 단 월급 컬럼의 자릿수를 10자리로 하고, 월급을 출력하고 남은 나머지 자리에 *(별표)를 채워서 조회.
-
+SELECT first_name, salary, LPAD(salary, 10, '*') as 값 FROM employees; 
 
 -- 29) 사원들의 이름과 월급 조회. 단 월급은 1000을 네모(■) 하나로 출력.
 
@@ -230,6 +230,62 @@ FROM employees;
 SELECT first_name, hire_date, to_char(hire_date, 'yyyy/mm/dd day'), to_char(salary, 'l999')
 FROM employees
 WHERE department_id = 50;
+
+ALTER SESSION SET
+      nls_date_format = 'rr/mm/dd';
+
+
+-- 추가수당이 null이면 200, 아니면 급여 * 추가수당
+-- 사번, 이름, 급여, 추가수당
+
+SELECT employee_id, first_name, salary, nvl2(commission_pct, salary * commission_pct, 200) as 추가수당 from employees;
+
+
+-- if-then-else
+-- 급여가 1000보다 작다. 30% 인상, 급여가 2000보다 작다. 20% 인상, 급여가 3000보다 작다. 10% 인상
+SELECT first_name, salary, 
+        CASE WHEN salary < 1000 THEN salary * 1.3 
+             WHEN salary < 2000 THEN salary * 1.2 
+             WHEN salary < 3000 THEN salary * 1.1 
+             ELSE salary 
+             END 
+             AS 인상된_급여 
+FROM employees;
+
+
+SELECT first_name, department_id, 
+        CASE WHEN department_id = 20 or department_id = 30 or department_id = 50 THEN '서울' 
+             WHEN department_id = 60 or department_id = 70 or department_id = 80 THEN '대구'
+             ELSE '제주도'
+             END
+             AS 이동지역
+FROM employees;
+
+
+-- 36) 2018년 10월 1일에서 2019년 6월 1일 사이의 총일수 출력.
+-- 37) 2018년 10월 1일에서 2019년 6월 1일 사이의 총 주(Week) 수를 출력(정수).
+-- 38) 2023년 5월 1일로부터 100달 뒤의 날짜 출력.
+-- 39) 2023년 5월 1일로부터 100일 후 날짜 출력.
+-- 40) 2023년 6월 30일 이후 바로 돌아올 화요일의 날짜 출력
+-- 41) 2023년 9월 19일 이후 바로 돌아올 토요일의 날짜 출력
+-- 42) 오늘 이후 돌아올 금요일의 날짜 출력
+-- 43) 2020년 5월 22일부터 100달 뒤에 돌아오는 화요일의 날짜 출력
+-- 44) 오늘부터 100달 뒤에 돌아오는 월요일의 날짜 출력
+-- 45) 2019년 5월 22일 해당 달의 마지막 날짜가 어떻게 되는지 조회
+-- 46) 오늘부터 이번 달 말일까지 총 며칠 남았는지 조회
+-- 47) 이름이 SUSAN인 사원의 이름, 입사일, 입사한 달의 마지막 날짜를 조회
+-- 48) 이름(last_name)이 GRANT(대문자로 변환)인 사원의 이름과 입사한 요일을 출력하고, GRANT의 월급에 천단위를 구분할 수 있는 콤마(,)를 붙여 조회
+-- 50) 2008년도에 입사한 사원의 이름과 입사일 조회(to_char 함수 사용)
+-- 51) 월급이 1500 이상인 사원의 이름과, 월급에 천단위를 구분할 수 있는 콤마(,)와 화폐단위를 붙여 조회
+-- 52) 2005년 06월 14일에 입사한 사원의 이름과 입사일 조회(to_date 함수 사용)
+-- 53) 사원의 이름과 커미션을 조회. (단 커미션이 NULL인 사원들은 0)
+-- 54) 직업이 'SA_MAN' 또는 'IT_PROG' 인 사원의 월급, 추가수당, 월급여 조회 - 추가수당 : 월급 * 커미션(단 커미션이 NULL인 경우 0) - 월급여 : 월급 + 추가수당
+-- 55) 사원의 이름과 부서 번호, 보너스 조회 보너스 : 부서 번호가 10번이면 300, 20번이면 400, 나머지 부서 번호는 0
+-- 56) 사원 번호와 사원 번호가 짝수인지 홀수인지를 조회
+-- 57) 사원의 이름, 직업, 보너스 조회 단 직무가 'SA_MAN'이면 보너스 5000 나머지 직무는 보너스 2000
+-- 58) 사원의 이름, 직업, 월급, 보너스 조회 - 보너스 : 월급이 3000이상이면 500, 월급이 2000이상 3000미만이면 300, 월급이 1000이상 2000미만이면 200, 나머지는 0
+-- 59) 사원의 이름, 직업, 커미션, 보너스 조회. 보너스 : 커미션이 NULL이면 500, NULL이 아니면 0
+-- 60) 사원의 이름, 직업, 보너스 조회 - 보너스는 직무가 'SA_MAN', 'PU_CLERK' 이면 500, 'ST_CLERK', 'FI_ACCOUNT'이면 400 나머지 0
 
 
 
