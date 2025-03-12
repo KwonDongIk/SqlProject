@@ -32,7 +32,12 @@
 --표시하는 질의를 작성하고 질의를 실행하시오.
 --4. 부서 위치 ID가 1700인 모든 사원의 이름, 부서 번호 및 업무 ID를 표시하시오.
 --5. King에게 보고하는(manager가 King) 모든 사원의 이름과 급여를 표시하시오.
---6. Executive 부서의 모든 사원에 대한 부서 번호, 이름, 업무 ID를 표시하시오.
+--6. Executive 부서의 모든 사원에 대한 부서 번호, 이름, 업무 ID(job_id)를 표시하시오.
+SELECT department_id, first_name, job_id
+FROM employees
+WHERE department_id = (SELECT department_id 
+                       FROM departments 
+                       WHERE department_name = 'Executive');
 --7. 평균 급여보다 많은 급여를 받고, 이름에 u가 포함된 사원과 같은 부서에 근무하는 모든 사원의 사원번호, 이름, 급여를 표시하시오.
 SELECT employee_id, last_name, salary, department_id
 FROM employees

@@ -17,8 +17,8 @@ FROM employees;
 -- 4. 이름, 부서번호, 부서이름, 도시명
 SELECT e.first_name, e.department_id, d.department_name, l.city
 FROM employees e
-JOIN departments d ON e.department_id = d.department_id 
-JOIN locations l ON l.location_id = d.location_id; 
+LEFT JOIN departments d ON e.department_id = d.department_id 
+LEFT JOIN locations l ON l.location_id = d.location_id; 
 
 -- 5. 서브쿼리 이용해서 'sales' 부서에서 일하는 사원들의 사원번호, 이름, 직무를 출력
 -- Join

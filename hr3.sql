@@ -46,7 +46,7 @@ SELECT employee_id, first_name, department_id, salary, (salary * 12) as 연봉 F
 SELECT employee_id, first_name, salary FROM employees;
 
 -- 2) 사원 테이블의 모든 컬럼 조회.
-SELECT * FROM emplyees;
+SELECT * FROM employees;
 
 -- 3) 사원 테이블의 사원번호와 이름, 월급 조회. 컬럼명을 한글로 '사원 번호', '사원 이름'으로 조회.
 SELECT employee_id as 사원번호, first_name as 사원이름, salary FROM employees;

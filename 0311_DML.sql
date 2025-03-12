@@ -100,6 +100,40 @@ SELECT *
 FROM user_col_comments;
 
 
+CREATE TABLE EMP_HW(EMPNO number(4), ENAME varchar2(10), JOB varchar2(9), MGR number(4), HIREDATE date, SAL number(7,2), COMM number(7,2), DEPNO number(2));
+
+ALTER TABLE EMP_HW
+add (bigo varchar2(20));
+
+ALTER TABLE EMP_HW
+MODIFY (bigo varchar2(30));
+
+ALTER TABLE EMP_HW
+RENAME COLUMN bigo to remark;
+
+INSERT INTO EMP_HW (EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPNO)
+SELECT employee_id, first_name, job_id, manager_id, hire_date, salary, commission_pct, department_id
+FROM employees;
+
+ALTER TABLE EMP_HW
+MODIFY (ENAME varchar2(30));
+
+ALTER TABLE EMP_HW
+MODIFY (JOB varchar2(15));
+
+ALTER TABLE EMP_HW
+MODIFY (DEPNO number(5));
+
+
+
+
+
+
+
+
+
+
+
 
 
 
