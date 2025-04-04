@@ -55,8 +55,108 @@ BEGIN
 END;
 /
 
+-- PL/SQL의 SELECT문
+-- 1) 예시
+DECLARE
+    v_ename employees.last_name%TYPE;
+BEGIN
+    SELECT last_name
+    -- 조회한 데이터를 변수에 담는 구문
+    INTO v_ename
+    FROM employees
+    WHERE employee_id = 100;
+    
+    DBMS_OUTPUT.PUT_LINE(v_ename);
+    
+END;
+/
 
 
 
+SELECT last_name
+--INTO v_ename
+FROM employees
+WHERE employee_id = 100;
 
 
+-- 2) 결과는 반드시 only one
+DECLARE
+    v_ename VARCHAR2(100);
+BEGIN
+    SELECT last_name
+    INTO v_ename
+    FROM employees
+    WHERE department_id = &부서번호;
+    -- 부서번호 10 : 정상실행
+    -- 부서번호 50 : TOO_MANY_ROWS(ORA-01422: exact fetch returns more than requested number of rows)
+    -- 부서번호  0 : NOT_DATA_FOUND(ORA-01403: no data found)
+    DBMS_OUTPUT.PUT_LINE('사원이름 : ' || v_ename);
+    
+END;
+/
+
+
+-- 3) SELECT 절의 컬럼과 INTO 절의 변수 관계
+DECLARE
+    v_eid employees.employee_id%TYPE;
+    v_ename VARCHAR2(100);
+BEGIN
+    SELECT employee_id, last_name
+    INTO v_eid, v_ename
+    -- SELECT > INTO ) ORA-00947: not enough values
+    -- SELECT < INTO ) ORA-00913: too many values
+    FROM employees
+    WHERE employee_id = 100;
+    
+    DBMS_OUTPUT.PUT_LINE('사원번호 : ' || v_eid || ', 사원이름 : ' || v_ename);
+END;
+/
+
+/*
+    사원번호를 입력(치환변수)할 경우 해당
+    사원의 이름과 입사일자를 출력하는 PL/SQL을 작성
+    1) SQL문 확인 ) 출력 -> SELECT문
+       입력 : 사원번호 -> 출력 : 사원의 이름, 입사일자
+       
+       SELECT 사원이름, 입사일자
+       FROM employees
+       WHERE 사원번호
+       
+    2) PL/SQL 블록 생성
+*/
+--1
+DECLARE
+    v_eid employees.employee_id%TYPE;
+    v_ename employees.last_name%TYPE;
+    v_dname departments.department_name%TYPE;
+BEGIN
+    SELECT e.employee_id, e.last_name, d.department_name 
+    INTO v_eid, v_ename, v_dname
+    FROM employees e
+    JOIN departments d ON e.department_id = d.department_id
+    WHERE employee_id = &사원번호;
+    
+    DBMS_OUTPUT.PUT_LINE('사원번호 : ' || v_eid || ', 사원이름 : ' || v_ename || ', 부서이름 : ' || v_dname);
+END;
+/
+
+SELECT last_name, hire_date
+FROM employees
+WHERE employee_id = &사원번호;
+
+--2
+DECLARE
+    v_ename employees.last_name%TYPE;
+    v_salary employees.salary%TYPE;
+    v_year number(15, 2);
+
+BEGIN
+    SELECT last_name, salary, (salary*12+(nvl(salary,0)*nvl(commission_pct,0)*12))
+    INTO v_ename, v_salary, v_year
+    FROM employees
+    WHERE employee_id = &사원번호;
+    
+    
+    DBMS_OUTPUT.PUT_LINE('사원이름 : ' || v_ename || ', 급여 : ' || v_salary || ', 연봉 : ' || v_year);
+END;
+/
