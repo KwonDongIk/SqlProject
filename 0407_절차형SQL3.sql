@@ -229,3 +229,34 @@ BEGIN
 END;
 /
 --------------------------------------------------------------------------------
+DECLARE
+    v_num NUMBER(2,0); -- 몇단일까요?
+    v_cnt NUMBER(2,0); -- 곱
+BEGIN
+    FOR v_cnt IN 1 .. 9 LOOP
+        FOR v_num IN 1 .. 9 LOOP
+        IF(MOD(v_num, 2) = 1) THEN
+            DBMS_OUTPUT.PUT(v_num || '*' || v_cnt || '=' || (v_num * v_cnt));
+            DBMS_OUTPUT.PUT('                ');
+            END IF;
+        END LOOP;
+        DBMS_OUTPUT.PUT_LINE('');
+    END LOOP;
+END;
+/
+--------------------------------------------------------------------------------
+DECLARE
+    v_num NUMBER(2,0); -- 몇단일까요?
+    v_cnt NUMBER(2,0); -- 곱
+BEGIN
+   FOR v_num IN 1 .. 9 LOOP
+   IF(MOD(v_num, 2) = 1) THEN
+        FOR v_cnt IN 1 .. 9 LOOP
+            DBMS_OUTPUT.PUT(v_num || '*' || v_cnt || '=' || (v_num * v_cnt));
+            DBMS_OUTPUT.PUT('                ');
+        END LOOP;
+        DBMS_OUTPUT.PUT_LINE('');
+        END IF;
+    END LOOP;
+END;
+/
