@@ -362,17 +362,18 @@ IS
 
 BEGIN
 	DBMS_OUTPUT.PUT_LINE('yedam_ju ' || p_id_no);
-	p_id_no := SUBSTR(p_id_no, 1, 6)
+	v_result := SUBSTR(p_id_no, 1, 6)
 	|| '-' || SUBSTR(p_id_no, 7, 1)
     || '******';
-	DBMS_OUTPUT.PUT_LINE(p_id_no);
+	DBMS_OUTPUT.PUT_LINE(v_result);
 END;
 /
 
-DECLARE
-	v_id VARCHAR2(100) := '9501011667777';
 BEGIN
-	format_idnumber(v_id);
-	DBMS_OUTPUT.PUT_LINE(v_id);
+	format_idnumber('9501011667777');
 END;
 /
+EXECUTE format_idnumber('9501011667777');
+
+SELECT last_name, RPAD(last_name, 10, '-'), LPAD(last_name, 10, '-')
+FROM employees;
